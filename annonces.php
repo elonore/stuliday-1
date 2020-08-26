@@ -1,6 +1,7 @@
 <?php 
     $page='annonce';
     require('inc/connect.php');
+    require('inc/functions.php');
     require('assets/head.php');
     include('assets/nav.php');
 ?>
@@ -13,7 +14,7 @@
         </div>
         <div class="row">
             <?php
-                // Affichages des annonces
+                displayAllUsers();
             ?>
         </div>
     </div>
