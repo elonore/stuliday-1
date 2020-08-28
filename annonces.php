@@ -1,4 +1,4 @@
-<?php 
+<?php
     $page='annonce';
     require('inc/connect.php');
     require('inc/functions.php');
