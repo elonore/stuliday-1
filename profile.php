@@ -1,8 +1,20 @@
 <?php 
     $page ='profile';
+    require('inc/connect.php');
     require('assets/head.php');
     include('assets/nav.php');
-    require('inc/connect.php'); 
+
+    $user_id = $_SESSION['id'];
+
+    $sql1 = $db->query("SELECT COUNT(*) FROM annonces WHERE author_article = $user_id");
+    $annoncesU = $sql1->fetchColumn();
+    
+    $sql2 = $db->query("SELECT COUNT(*) FROM reservations WHERE id_user = $user_id");
+    $resaU = $sql2->fetchColumn();
+
+    if (isset($_GET['a']) && $_GET['a'] == '1'){
+        echo "<div class='col-12 alert alert-success'> Votre annonce a bien été publiée ! </div>";
+    }
 ?>
 <section>
     <div class="container">
@@ -36,12 +48,12 @@
                 </form>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-primary mb-3">Publier une nouvelle annonce</a>
-                <a href="#" class="btn btn-primary mb-3 <?php  if($compteur < 1){ echo 'disabled'; } ?>"
-                    data-toggle="modal" data-target="#listingAnnonces">Voir mes annonces  <span class="badge badge-primary badge-pill">10</span>
+                <a href="create-annonce.php" class="btn btn-primary mb-3">Publier une nouvelle annonce</a>
+                <a href="#" class="btn btn-primary mb-3 <?php  if($annoncesU < 1){ echo 'disabled'; } ?>"
+                    data-toggle="modal" data-target="#listingAnnonces">Voir mes annonces  <span class="badge badge-primary badge-pill"><?= $annoncesU ;?></span>
                     </a>
-                <a href="#" class="btn btn-primary mb-3 <?php  if($compt < 1){ echo 'disabled'; } ?>"
-                    data-toggle="modal" data-target="#listingResa">Voir mes réservations <span class="badge badge-primary badge-pill">5</span></a>
+                <a href="#" class="btn btn-primary mb-3 <?php  if($resaU < 1){ echo 'disabled'; } ?>"
+                    data-toggle="modal" data-target="#listingResa">Voir mes réservations <span class="badge badge-primary badge-pill"><?= $resaU ;?></span></a>
             </div>
             <div class="col-md-12 text-center pt-5 my-2">
                 <a class="btn btn-info back" href="annonces.php">Retour aux annonces</a>
@@ -50,7 +62,7 @@
     </div>
 </section>
 
-<div class="modal fade" id="listingResa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="listingAnnonces" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog listings" role="document">
         <div class="modal-content text-center">

@@ -22,7 +22,11 @@
                     $sth->bindValue(':password',$user_pass);
 
                     if($sth->execute()){
-                        $message = "<div class ='alert alert-success'> Votre compte a bien été crée </div>";
+                        $message = "<div class ='alert alert-success'> Votre compte a bien été créé, vous allez être redirigé vers votre page de profil. </div>";
+                        $user_id = $db->lastInsertId();
+                        $_SESSION['id'] = $user_id;
+                        $_SESSION['email'] = $user_email;
+                        echo '<meta http-equiv="refresh" content="3;URL=profile.php">';
                     }
                 }else{
                     $message = "<div class ='alert alert-danger'> Les mots de passes ne concordent pas </div>";

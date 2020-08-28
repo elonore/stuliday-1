@@ -14,7 +14,7 @@
         </div>
         <div class="row">
             <?php
-                displayAllUsers();
+                displayAllAnnonces();
             ?>
         </div>
     </div>
